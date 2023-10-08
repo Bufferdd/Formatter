@@ -27,6 +27,6 @@ jobs:
     # Сборка решения
     - name: Build the solution
       uses: microsoft/setup-msbuild@v1.3.1
-    # Вывод результатов тестов
-    - name: Dotnet tests report
-      uses: zyborg/dotnet-tests-report@v1.4.4
+    # Запуск юнит-тестов
+    - name: Run unit tests
+      run: dotnet test FormatterTests/FormatterTests.csproj --configuration Release
