@@ -1,0 +1,38 @@
+# Название нашего ci 
+name: CI
+# Задает условия для запуска CI процесса. 
+# В данном случае, CI будет запускаться при каждом push в любую ветку
+on:
+  push:
+    branches:
+      - '*'
+# Определяет список заданий, которые должны выполняться в рамках CI процесса
+jobs:
+  # Задает имя задания
+  build:
+    # Определяет операционную систему, на которой будет выполняться CI процесс
+    runs-on: windows-latest
+    # Определяет список шагов, которые нужно выполнить в рамках задания
+    steps:
+    # Название первого шага
+    # Клонирование репозитория в рабочую директорию CI процесса
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    # Название второго шага
+    # Установка и настройка .NET Framework для использования в CI процессе
+    - name: Set up .NET Framework
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 4.7.2
+    # Название третьего шага
+    # Восстановление зависимости проекта с помощью NuGet
+    - name: Restore dependencies
+      run: nuget restore
+    # Название четвертого шага
+    # Сборка главного проекта Formatter с помощью MSBuild
+    - name: Build main project
+      run: msbuild /p:Configuration=Release Formatter.sln
+    # Название пятого шага
+    # Запуск юнит-тестов проекта FormatterTests с помощью команды dotnet test
+    - name: Run unit tests
+      run: dotnet test FormatterTests/FormatterTests.csproj --configuration Release
