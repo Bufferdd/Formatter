@@ -44,7 +44,7 @@ namespace Formatter
             // 
             // listRichTextBox
             // 
-            this.listRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 1.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listRichTextBox.Location = new System.Drawing.Point(50, 50);
             this.listRichTextBox.Name = "listRichTextBox";
             this.listRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -78,31 +78,31 @@ namespace Formatter
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.сохранитьToolStripMenuItem.Text = "Открыть";
             // 
             // загрузитьToolStripMenuItem
             // 
             this.загрузитьToolStripMenuItem.Name = "загрузитьToolStripMenuItem";
-            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.загрузитьToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.загрузитьToolStripMenuItem.Text = "Сохранить";
             // 
             // сохранитьКакToolStripMenuItem
             // 
             this.сохранитьКакToolStripMenuItem.Name = "сохранитьКакToolStripMenuItem";
-            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.сохранитьКакToolStripMenuItem.Text = "Сохранить как...";
             // 
             // очиститьToolStripMenuItem
             // 
             this.очиститьToolStripMenuItem.Name = "очиститьToolStripMenuItem";
-            this.очиститьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.очиститьToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.очиститьToolStripMenuItem.Text = "Очистить";
             // 
             // распечататьToolStripMenuItem
             // 
             this.распечататьToolStripMenuItem.Name = "распечататьToolStripMenuItem";
-            this.распечататьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.распечататьToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.распечататьToolStripMenuItem.Text = "Распечатать";
             // 
             // авторыToolStripMenuItem
@@ -130,7 +130,7 @@ namespace Formatter
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormatterView";
-            this.Text = "Form1";
+            this.Text = "Formatter";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

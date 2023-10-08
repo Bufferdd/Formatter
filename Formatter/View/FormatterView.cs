@@ -8,15 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Formatter.Model;
-
 namespace Formatter
 {
-    public interface IView 
+    public interface IView
     {
+        // Получить текст
         string GetText();
+        // Задать новый текст
         void SetText(string text);
+        // Добавить текст
         void AddText(string text);
+        // Вывести ошибку
         void ShowError(string error);
     }
     public partial class FormatterView : Form, IView
@@ -28,34 +30,35 @@ namespace Formatter
             RedrawList();
         }
         // Отрисовывает richTextBox в зависимости от коэффициента different. Наибольший возможный - 5
-        void RedrawList(int different = 5) 
+        void RedrawList(int different = 5)
         {
-            int width = Convert.ToInt32(21 * CreateGraphics().DpiX / different);
-            int height = Convert.ToInt32(29.7 * CreateGraphics().DpiY / different);
-
             // Подбор размеров листа А4
-            listRichTextBox.Width = width;
-            listRichTextBox.Height = height;
+            double width = 21 * CreateGraphics().DpiX / different;
+            double height = 29.7 * CreateGraphics().DpiY / different;
 
-            Font font = new Font(listRichTextBox.Font.FontFamily, listRichTextBox.Font.Size / different, listRichTextBox.Font.Style);
+            listRichTextBox.Width = Convert.ToInt32(width);
+            listRichTextBox.Height = Convert.ToInt32(height);
+
+            Font font = new Font(listRichTextBox.Font.FontFamily, listRichTextBox.Font.SizeInPoints, listRichTextBox.Font.Style);
             listRichTextBox.Font = font;
         }
 
-        string IView.GetText() 
+        string IView.GetText()
         {
             return listRichTextBox.Text;
         }
-        void IView.SetText(string text) 
+        void IView.SetText(string text)
         {
             listRichTextBox.Text = text;
         }
-        void IView.AddText(string text) 
+        void IView.AddText(string text)
         {
             listRichTextBox.Text += text;
         }
-        void IView.ShowError(string error) 
+        void IView.ShowError(string error)
         {
             MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
+
