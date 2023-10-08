@@ -15,7 +15,7 @@ namespace Formatter.Model
     }
 
     // Модель класса Formatter
-    class FormatterModel : IModel
+    public class FormatterModel : IModel
     {
         private string _text;
 
