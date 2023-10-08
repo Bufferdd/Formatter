@@ -24,9 +24,6 @@ jobs:
     # Установка пакета NuGet
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.2.0
-    # Восстановление NuGet пакетов
-    - name: restore nuget packages
-      uses: packages/restore-nuget-packages@v1.0.2
     # Сборка решения
     - name: Build the solution
       uses: microsoft/setup-msbuild@v1.3.1
