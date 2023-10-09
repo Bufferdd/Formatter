@@ -38,13 +38,13 @@ namespace Formatter.View
             this.saveHowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsGroupBox = new System.Windows.Forms.GroupBox();
             this.formatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.referenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.authorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsGroupBox = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +57,8 @@ namespace Formatter.View
             this.listRichTextBox.Size = new System.Drawing.Size(453, 593);
             this.listRichTextBox.TabIndex = 0;
             this.listRichTextBox.Text = "";
+            this.listRichTextBox.TextChanged += new System.EventHandler(this.listRichTextBox_TextChanged);
+            this.listRichTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listRichTextBox_KeyPress);
             // 
             // menuStrip1
             // 
@@ -86,53 +88,44 @@ namespace Formatter.View
             // createToolStripMenuItem
             // 
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.createToolStripMenuItem.Text = "Создать";
             this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.openToolStripMenuItem.Text = "Открыть";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.saveToolStripMenuItem.Text = "Сохранить";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveHowToolStripMenuItem
             // 
             this.saveHowToolStripMenuItem.Name = "saveHowToolStripMenuItem";
-            this.saveHowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveHowToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.saveHowToolStripMenuItem.Text = "Сохранить как...";
             this.saveHowToolStripMenuItem.Click += new System.EventHandler(this.saveHowToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.clearToolStripMenuItem.Text = "Очистить";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.printToolStripMenuItem.Text = "Распечатать";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
-            // 
-            // settingsGroupBox
-            // 
-            this.settingsGroupBox.Location = new System.Drawing.Point(459, 27);
-            this.settingsGroupBox.Name = "settingsGroupBox";
-            this.settingsGroupBox.Size = new System.Drawing.Size(313, 154);
-            this.settingsGroupBox.TabIndex = 2;
-            this.settingsGroupBox.TabStop = false;
-            this.settingsGroupBox.Text = "Настройки шрифта";
             // 
             // formatToolStripMenuItem
             // 
@@ -142,6 +135,20 @@ namespace Formatter.View
             this.formatToolStripMenuItem.Name = "formatToolStripMenuItem";
             this.formatToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.formatToolStripMenuItem.Text = "Формат";
+            // 
+            // colorToolStripMenuItem
+            // 
+            this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.colorToolStripMenuItem.Text = "Цвет";
+            this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
+            // 
+            // fontToolStripMenuItem
+            // 
+            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.fontToolStripMenuItem.Text = "Шрифт";
+            this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
             // referenceToolStripMenuItem
             // 
@@ -155,30 +162,25 @@ namespace Formatter.View
             // aboutProgramToolStripMenuItem
             // 
             this.aboutProgramToolStripMenuItem.Name = "aboutProgramToolStripMenuItem";
-            this.aboutProgramToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutProgramToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.aboutProgramToolStripMenuItem.Text = "О программе";
             this.aboutProgramToolStripMenuItem.Click += new System.EventHandler(this.aboutProgramToolStripMenuItem_Click);
             // 
             // authorsToolStripMenuItem1
             // 
             this.authorsToolStripMenuItem1.Name = "authorsToolStripMenuItem1";
-            this.authorsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.authorsToolStripMenuItem1.Size = new System.Drawing.Size(151, 22);
             this.authorsToolStripMenuItem1.Text = "Разработчики";
             this.authorsToolStripMenuItem1.Click += new System.EventHandler(this.authorsToolStripMenuItem1_Click);
             // 
-            // colorToolStripMenuItem
+            // settingsGroupBox
             // 
-            this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.colorToolStripMenuItem.Text = "Цвет";
-            this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
-            // 
-            // fontToolStripMenuItem
-            // 
-            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.fontToolStripMenuItem.Text = "Шрифт";
-            this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
+            this.settingsGroupBox.Location = new System.Drawing.Point(459, 27);
+            this.settingsGroupBox.Name = "settingsGroupBox";
+            this.settingsGroupBox.Size = new System.Drawing.Size(313, 154);
+            this.settingsGroupBox.TabIndex = 2;
+            this.settingsGroupBox.TabStop = false;
+            this.settingsGroupBox.Text = "Настройки шрифта";
             // 
             // FormatterView
             // 
