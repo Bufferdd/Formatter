@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 
 using Formatter.Model;
 using Formatter.View;
@@ -20,6 +21,8 @@ namespace Formatter.Presenter
             if (_view != null)
             {
                 _view.MenuFile_CreateClick += CreateFile;
+                _view.MenuFile_OpenClick += OpenFile;
+                _view.MenuFile_ClearClick += Clear;
             }
         }
 
@@ -29,6 +32,17 @@ namespace Formatter.Presenter
             {
                 
             }
+        }
+        public void OpenFile(object sender, EventArgs e) 
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+                _model.LoadFromFile(fileDialog.FileName);
+        }
+        public void Clear(object sender, EventArgs e) 
+        {
+            _view.SetText("");
         }
     }
 }
