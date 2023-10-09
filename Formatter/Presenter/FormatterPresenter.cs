@@ -68,6 +68,7 @@ namespace Formatter.Presenter
             {
                 _model.LoadFromFile(fileDialog.FileName);
                 _model.SetFilename(fileDialog.FileName);
+                _view.SetText(_model.GetText());
             }
         }
         public void Clear(object sender, EventArgs e) 
