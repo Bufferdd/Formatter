@@ -42,6 +42,7 @@ namespace Formatter.Presenter
 
                 _view.Text_TextChanged += Text_TextChanged;
                 _view.Text_KeyPress += Text_KeyPress;
+                _view.Text_MouseUp += Text_MouseUp;
             }
         }
 
@@ -126,11 +127,18 @@ namespace Formatter.Presenter
         }
         public void ChooseFormat(object sender, EventArgs e)
         {
-            FontDialog fontDialog = new FontDialog();
-
-            if (fontDialog.ShowDialog() == DialogResult.OK)
+            try
             {
+                FontDialog fontDialog = new FontDialog();
 
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+            catch (Exception ex) 
+            {
+                _view.ShowError(ex.Message);
             }
         }
         public void AboutProgramShow(object sender, EventArgs e) 
@@ -162,6 +170,21 @@ namespace Formatter.Presenter
         public void Text_KeyPress(object sender, EventArgs e)
         {
             // Тут возможен контроль над вводом
+        }
+        public void Text_MouseUp(object sender, EventArgs e) 
+        {
+            string text = _view.GetSelectionText();
+
+            if (text != null) 
+            {
+                Font font = _view.GetSelectionTextFont();
+                Color color = _view.GetSelectionTextColor();
+
+                _view.SetFontSize(font.Size.ToString());
+                _view.SetFontColor(color.ToString());
+                _view.SetFontStyle(font.Style.ToString());
+                _view.SetFont(font.Name.ToString());
+            }
         }
     }
 }
