@@ -28,7 +28,6 @@ namespace Formatter.Presenter
                 _view.MenuFile_OpenClick += OpenFile;
                 _view.MenuFile_ClearClick += Clear;
                 _view.MenuFile_SaveClick += SaveFile;
-                
             }
         }
 
@@ -36,10 +35,11 @@ namespace Formatter.Presenter
         {
             _view.Show();
         }
-
         public void CreateFile(object sender, EventArgs e) 
         {
-            File.Create(@"Новый formatter.frmt");
+            string filename = @"Новый formatter.frmt";
+            File.Create(filename);
+            _model.SetFilename(filename);
         }
         public void OpenFile(object sender, EventArgs e) 
         {
