@@ -12,18 +12,19 @@ namespace FormatterTests
         [TestMethod]
         public void Test_CreateFile()
         {
+            string filename = "Новый formatter.frmt";
             FormatterPresenter formatterPresenter = new FormatterPresenter(null, null);
 
-            if (File.Exists("Новый formatter.frmt")) 
-                File.Delete("Новый formatter.frmt");
+            if (File.Exists(filename)) 
+                File.Delete(filename);
 
-            Assert.AreEqual(false, File.Exists("Новый formatter.frmt"));
+            Assert.AreEqual(false, File.Exists(filename));
             
             formatterPresenter.CreateFile(null, null);
-            Assert.AreEqual(true, File.Exists("Новый formatter.frmt"));
+            Assert.AreEqual(true, File.Exists(filename));
 
-            File.Delete("Новый formatter.frmt");
-            Assert.AreEqual(false, File.Exists("Новый formatter.frmt"));
+            File.Delete(filename);
+            Assert.AreEqual(false, File.Exists(filename));
         }
     }
 }
