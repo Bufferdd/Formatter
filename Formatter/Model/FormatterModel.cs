@@ -29,11 +29,17 @@ namespace Formatter.Model
 
         void IModel.SaveInFile(string filename, string fileformat) 
         {
-            
+            using (StreamWriter writer = new StreamWriter(filename + fileformat)) 
+            {
+                writer.Write(_text);
+            }
         }
         void IModel.LoadFromFile(string filename, string fileformat) 
         {
-
+            using (StreamReader reader = new StreamReader(filename + fileformat))
+            {
+                _text = reader.ReadToEnd();
+            }
         }
     }
 }
