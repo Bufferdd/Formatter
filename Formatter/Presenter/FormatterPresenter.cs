@@ -8,7 +8,11 @@ using Formatter.View;
 
 namespace Formatter.Presenter
 {
-    public class FormatterPresenter
+    public interface IPresenter 
+    {
+        void Run();
+    }
+    public class FormatterPresenter : IPresenter
     {
         private IModel _model;
         private IView _view;
@@ -24,6 +28,11 @@ namespace Formatter.Presenter
                 _view.MenuFile_OpenClick += OpenFile;
                 _view.MenuFile_ClearClick += Clear;
             }
+        }
+
+        void IPresenter.Run() 
+        {
+
         }
 
         public void CreateFile(object sender, EventArgs e) 
