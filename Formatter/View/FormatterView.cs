@@ -12,6 +12,12 @@ namespace Formatter.View
         void Close();
         // Получить текст
         string GetText();
+        // Получить выделенный текст
+        string GetSelectionText();
+        // Получить цвет выделенного текста
+        Color GetSelectionTextColor();
+        // Получить шрифт выделенного текста
+        Font GetSelectionTextFont();
         // Задать новый текст
         void SetText(string text);
         // Добавить текст
@@ -70,47 +76,17 @@ namespace Formatter.View
         public FormatterView()
         {
             InitializeComponent();
-
-            RedrawList();
         }
-        // Отрисовывает richTextBox в зависимости от коэффициента different. Наименьший возможный - 5
-        void RedrawList(int different = 5)
-        {
-            // Подбор размеров листа А4
-            double width = 21 * CreateGraphics().DpiX / different;
-            double height = 29.7 * CreateGraphics().DpiY / different;
-
-            listRichTextBox.Width = Convert.ToInt32(width);
-            listRichTextBox.Height = Convert.ToInt32(height);
-
-            Font font = new Font(listRichTextBox.Font.FontFamily, listRichTextBox.Font.SizeInPoints, listRichTextBox.Font.Style);
-            listRichTextBox.Font = font;
-        }
-
-        void IView.Show() 
-        {
-            Application.Run(this);
-        }
-        void IView.Close() 
-        {
-            Application.Exit();
-        }
-        string IView.GetText()
-        {
-            return listRichTextBox.Text;
-        }
-        void IView.SetText(string text)
-        {
-            listRichTextBox.Text = text;
-        }
-        void IView.AddText(string text)
-        {
-            listRichTextBox.Text += text;
-        }
-        void IView.ShowError(string error)
-        {
-            MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        void IView.Show() => Application.Run(this);
+        void IView.Close() => Application.Exit();
+        string IView.GetText() => listRichTextBox.Text;
+        string IView.GetSelectionText() => listRichTextBox.SelectedText;
+        Color IView.GetSelectionTextColor() => listRichTextBox.SelectionColor;
+        Font IView.GetSelectionTextFont() => listRichTextBox.SelectionFont;
+        void IView.SetText(string text) => listRichTextBox.Text = text;
+       
+        void IView.AddText(string text) => listRichTextBox.Text += text;
+        void IView.ShowError(string error) => MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         private void createToolStripMenuItem_Click(object sender, EventArgs e) => MenuFile_CreateClick?.Invoke(this, e);
 
@@ -135,7 +111,6 @@ namespace Formatter.View
         private void listRichTextBox_TextChanged(object sender, EventArgs e) => Text_TextChanged?.Invoke(this, e);
 
         private void listRichTextBox_KeyPress(object sender, KeyPressEventArgs e) => Text_KeyPress?.Invoke(this, e);
-
         void IView.SetFontSize(string fontSize) => fontSizeTextBox.Text = fontSize;
         void IView.SetFont(string font) => fontTextBox.Text = font;
         void IView.SetFontStyle(string fontStyle) => fontStyleTextBox.Text = fontStyle;
