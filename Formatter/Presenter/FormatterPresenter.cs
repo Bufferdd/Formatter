@@ -41,14 +41,17 @@ namespace Formatter.Presenter
             File.Create(filename);
             _model.SetFilename(filename);
         }
-        public void OpenFile(object sender, EventArgs e) 
+        public void OpenFile(object sender, EventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
 
             fileDialog.Filter = "frmt files (*.frmt)|*.frmt|All files (*.*)|*.*";
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
                 _model.LoadFromFile(fileDialog.FileName);
+                _model.SetFilename(fileDialog.FileName);
+            }
         }
         public void Clear(object sender, EventArgs e) 
         {
