@@ -28,6 +28,7 @@ namespace Formatter.Presenter
                 _view.MenuFile_OpenClick += OpenFile;
                 _view.MenuFile_ClearClick += Clear;
                 _view.MenuFile_SaveClick += SaveFile;
+                
             }
         }
 
@@ -38,10 +39,7 @@ namespace Formatter.Presenter
 
         public void CreateFile(object sender, EventArgs e) 
         {
-            using (StreamWriter writer = new StreamWriter(@"Новый formatter.frmt")) 
-            {
-                
-            }
+            File.Create(@"Новый formatter.frmt");
         }
         public void OpenFile(object sender, EventArgs e) 
         {
@@ -62,7 +60,7 @@ namespace Formatter.Presenter
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                _model.SaveInFile(fileDialog.FileName, "");
+                _model.SaveInFile(fileDialog.FileName);
             }
         }
     }
