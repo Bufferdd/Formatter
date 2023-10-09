@@ -32,6 +32,15 @@ namespace Formatter.Presenter
                 _view.MenuFile_SaveClick += SaveFile;
                 _view.MenuFile_SaveHowClick += SaveHowFile;
                 _view.MenuFile_PrintClick += PrintFile;
+
+                _view.MenuFormat_ColorClick += ChooseColor;
+                _view.MenuFormat_FontClick += ChooseFormat;
+
+                _view.MenuReference_AboutProgramClick += AboutProgramShow;
+                _view.MenuReference_AuthorsClick += AuthorsShow;
+
+                _view.Text_TextChanged += Text_TextChanged;
+                _view.Text_KeyPress += Text_KeyPress;
             }
         }
 
@@ -103,6 +112,30 @@ namespace Formatter.Presenter
             float y = e.MarginBounds.Top;
 
             e.Graphics.DrawString(_model.GetText(), font, Brushes.Black, x, y);
+        }
+        public void ChooseColor(object sender, EventArgs e) 
+        {
+
+        }
+        public void ChooseFormat(object sender, EventArgs e)
+        {
+
+        }
+        public void AboutProgramShow(object sender, EventArgs e) 
+        {
+
+        }
+        public void AuthorsShow(object sender, EventArgs e)
+        {
+
+        }
+        public void Text_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        public void Text_KeyPress(object sender, EventArgs e)
+        {
+
         }
     }
 }
