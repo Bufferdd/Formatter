@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using Formatter.Model;
 using Formatter.View;
 
 namespace Formatter.Presenter
 {
-    class FormatterPresenter
+    public class FormatterPresenter
     {
         private IModel _model;
         private IView _view;
@@ -17,7 +16,33 @@ namespace Formatter.Presenter
         public FormatterPresenter(IView view, IModel model)
         {
             _view = view;
-            _model = new FormatterModel(null);
+            _model = model;
+
+            if (_view != null)
+            {
+                _view.MenuFile_CreateClick += CreateFile;
+                _view.MenuFile_OpenClick += OpenFile;
+                _view.MenuFile_ClearClick += Clear;
+            }
+        }
+
+        public void CreateFile(object sender, EventArgs e) 
+        {
+            using (StreamWriter writer = new StreamWriter(@"Новый formatter.frmt")) 
+            {
+                
+            }
+        }
+        public void OpenFile(object sender, EventArgs e) 
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+                _model.LoadFromFile(fileDialog.FileName);
+        }
+        public void Clear(object sender, EventArgs e) 
+        {
+            _view.SetText("");
         }
     }
 }
