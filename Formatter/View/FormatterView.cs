@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Formatter.View
 {
     public interface IView
     {
+        // Показать форму
+        void Show();
+        // Закрыть форму
+        void Close();
         // Получить текст
         string GetText();
         // Задать новый текст
@@ -68,7 +66,7 @@ namespace Formatter.View
 
             RedrawList();
         }
-        // Отрисовывает richTextBox в зависимости от коэффициента different. Наибольший возможный - 5
+        // Отрисовывает richTextBox в зависимости от коэффициента different. Наименьший возможный - 5
         void RedrawList(int different = 5)
         {
             // Подбор размеров листа А4
@@ -82,6 +80,14 @@ namespace Formatter.View
             listRichTextBox.Font = font;
         }
 
+        void IView.Show() 
+        {
+            Application.Run(this);
+        }
+        void IView.Close() 
+        {
+            Application.Exit();
+        }
         string IView.GetText()
         {
             return listRichTextBox.Text;
@@ -118,6 +124,10 @@ namespace Formatter.View
         private void aboutProgramToolStripMenuItem_Click(object sender, EventArgs e) => MenuReference_AboutProgramClick?.Invoke(this, e);
 
         private void authorsToolStripMenuItem1_Click(object sender, EventArgs e) => MenuReference_AuthorsClick?.Invoke(this, e);
+
+        private void listRichTextBox_TextChanged(object sender, EventArgs e) => Text_TextChanged?.Invoke(this, e);
+
+        private void listRichTextBox_KeyPress(object sender, KeyPressEventArgs e) => Text_KeyPress?.Invoke(this, e);
     }
 }
 
