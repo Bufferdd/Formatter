@@ -9,36 +9,60 @@ namespace Formatter.Model
     public interface IModel 
     {
         // Сохранение данных в файл определенного формата
-        void SaveInFile(string filename, string fileformat = ".frmt");
+        void SaveInFile(string filename);
         // Получение данных из файла определенного формата
-        void LoadFromFile(string filename, string fileformat = ".frmt");
+        void LoadFromFile(string filename);
     }
 
     // Модель класса Formatter
     public class FormatterModel : IModel
     {
         private string _text;
+        private string _filename;
 
         // Весь текст
         public string Text { get { return _text; } set { _text = value; } }
+        // Файл, в котором хранится текст
+        public string Filename { get { return _filename; } set { _filename = value; } }
         // Конструктор
-        public FormatterModel(string text)
+        public FormatterModel(string text, string filename)
         {
             Text = text;
+            Filename = filename;
         }
 
-        void IModel.SaveInFile(string filename, string fileformat) 
+        void IModel.SaveInFile(string filename) 
         {
-            using (StreamWriter writer = new StreamWriter(filename + fileformat)) 
+            if (_filename == null)
             {
-                writer.Write(_text);
+                using (StreamWriter writer = new StreamWriter(filename))
+                {
+                    writer.Write(_text);
+                }
+            }
+            else
+            {
+                using (StreamWriter writer = new StreamWriter(_filename))
+                {
+                    writer.Write(_text);
+                }
             }
         }
-        void IModel.LoadFromFile(string filename, string fileformat) 
+        void IModel.LoadFromFile(string filename)
         {
-            using (StreamReader reader = new StreamReader(filename + fileformat))
+            if (_filename == null)
             {
-                _text = reader.ReadToEnd();
+                using (StreamReader reader = new StreamReader(filename))
+                {
+                    _text = reader.ReadToEnd();
+                }
+            }
+            else
+            {
+                using (StreamReader reader = new StreamReader(_filename))
+                {
+                    _text = reader.ReadToEnd();
+                }
             }
         }
     }
