@@ -18,13 +18,17 @@ namespace Formatter.Model
     public class FormatterModel : IModel
     {
         private string _text;
+        private string _filename;
 
         // Весь текст
         public string Text { get { return _text; } set { _text = value; } }
+        // Файл, в котором хранится текст
+        public string Filename { get { return _filename; } set { _filename = value; } }
         // Конструктор
-        public FormatterModel(string text)
+        public FormatterModel(string text, string filename)
         {
             Text = text;
+            Filename = filename;
         }
 
         void IModel.SaveInFile(string filename) 

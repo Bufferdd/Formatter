@@ -15,7 +15,7 @@ namespace FormatterTests
             string text = "Тестовый текст для проверки модели";
             string filename = "Тест.frmt";
 
-            FormatterModel model = new FormatterModel(text);
+            FormatterModel model = new FormatterModel(text, filename);
             IModel iModel = model;
 
             iModel.SaveInFile(filename);
@@ -36,7 +36,7 @@ namespace FormatterTests
             string text = "Тестовый текст для проверки модели";
             string filename = "Тест.frmt";
 
-            FormatterModel model = new FormatterModel(null);
+            FormatterModel model = new FormatterModel(null, null);
             Assert.IsNull(model.Text);
             IModel iModel = model;
 
