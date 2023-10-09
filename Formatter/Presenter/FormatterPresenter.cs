@@ -31,6 +31,7 @@ namespace Formatter.Presenter
                 _view.MenuFile_ClearClick += Clear;
                 _view.MenuFile_SaveClick += SaveFile;
                 _view.MenuFile_SaveHowClick += SaveHowFile;
+                _view.MenuFile_PrintClick += PrintFile;
             }
         }
 
@@ -82,6 +83,26 @@ namespace Formatter.Presenter
                 _model.SaveInFile(fileDialog.FileName);
                 _model.SetFilename(fileDialog.FileName);
             }
+        }
+        public void PrintFile(object sender, EventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                printDialog.Document.PrintPage += PrintDocument_PrintPage;
+
+                printDialog.Document.Print();
+            }
+        }
+        public void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Font font = new Font("Arial", 12);
+
+            float x = e.MarginBounds.Left;
+            float y = e.MarginBounds.Top;
+
+            e.Graphics.DrawString(_model.GetText(), font, Brushes.Black, x, y);
         }
     }
 }
