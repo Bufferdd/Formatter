@@ -21,10 +21,47 @@ namespace Formatter.View
         // Вывести ошибку
         void ShowError(string error);
 
-        void 
+        // События с текстом
+        event EventHandler Text_TextChanged;
+        event EventHandler Text_KeyPress;
+
+        // События с меню
+        event EventHandler MenuFile_CreateClick;
+        event EventHandler MenuFile_OpenClick;
+        event EventHandler MenuFile_SaveClick;
+        event EventHandler MenuFile_SaveHowClick;
+        event EventHandler MenuFile_ClearClick;
+        event EventHandler MenuFile_PrintClick;
+
+        // События с форматом
+        event EventHandler MenuFormat_ColorClick;
+        event EventHandler MenuFormat_FontClick;
+
+        // События с меню-справкой
+        event EventHandler MenuReference_AboutProgramClick;
+        event EventHandler MenuReference_AuthorsClick;
     }
     public partial class FormatterView : Form, IView
     {
+        // События с текстом
+        public event EventHandler Text_TextChanged;
+        public event EventHandler Text_KeyPress;
+
+        // События с меню
+        public event EventHandler MenuFile_CreateClick;
+        public event EventHandler MenuFile_OpenClick;
+        public event EventHandler MenuFile_SaveClick;
+        public event EventHandler MenuFile_SaveHowClick;
+        public event EventHandler MenuFile_ClearClick;
+        public event EventHandler MenuFile_PrintClick;
+
+        // События с форматом
+        public event EventHandler MenuFormat_ColorClick;
+        public event EventHandler MenuFormat_FontClick;
+
+        // События с меню-справкой
+        public event EventHandler MenuReference_AboutProgramClick;
+        public event EventHandler MenuReference_AuthorsClick;
         public FormatterView()
         {
             InitializeComponent();
@@ -61,6 +98,26 @@ namespace Formatter.View
         {
             MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void createToolStripMenuItem_Click(object sender, EventArgs e) => MenuFile_CreateClick?.Invoke(this, e);
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e) => MenuFile_OpenClick?.Invoke(this, e);
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e) => MenuFile_SaveClick?.Invoke(this, e);
+
+        private void saveHowToolStripMenuItem_Click(object sender, EventArgs e) => MenuFile_SaveHowClick?.Invoke(this, e);
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e) => MenuFile_ClearClick?.Invoke(this, e);
+
+        private void printToolStripMenuItem_Click(object sender, EventArgs e) => MenuFile_PrintClick?.Invoke(this, e);
+
+        private void colorToolStripMenuItem_Click(object sender, EventArgs e) => MenuFormat_ColorClick?.Invoke(this, e);
+
+        private void fontToolStripMenuItem_Click(object sender, EventArgs e) => MenuFormat_FontClick?.Invoke(this, e);
+
+        private void aboutProgramToolStripMenuItem_Click(object sender, EventArgs e) => MenuReference_AboutProgramClick?.Invoke(this, e);
+
+        private void authorsToolStripMenuItem1_Click(object sender, EventArgs e) => MenuReference_AuthorsClick?.Invoke(this, e);
     }
 }
 
