@@ -28,7 +28,6 @@ namespace Formatter.Presenter
                 _view.MenuFile_OpenClick += OpenFile;
                 _view.MenuFile_ClearClick += Clear;
                 _view.MenuFile_SaveClick += SaveFile;
-                
             }
         }
 
@@ -36,19 +35,23 @@ namespace Formatter.Presenter
         {
             _view.Show();
         }
-
         public void CreateFile(object sender, EventArgs e) 
         {
-            File.Create(@"Новый formatter.frmt");
+            string filename = @"Новый formatter.frmt";
+            File.Create(filename);
+            _model.SetFilename(filename);
         }
-        public void OpenFile(object sender, EventArgs e) 
+        public void OpenFile(object sender, EventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
 
             fileDialog.Filter = "frmt files (*.frmt)|*.frmt|All files (*.*)|*.*";
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
                 _model.LoadFromFile(fileDialog.FileName);
+                _model.SetFilename(fileDialog.FileName);
+            }
         }
         public void Clear(object sender, EventArgs e) 
         {
@@ -56,13 +59,20 @@ namespace Formatter.Presenter
         }
         public void SaveFile(object sender, EventArgs e)
         {
-            SaveFileDialog fileDialog = new SaveFileDialog();
-
-            fileDialog.Filter = "frmt files (*.frmt)|*.frmt|All files (*.*)|*.*";
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            if (_model.GetFilename() == null)
             {
-                _model.SaveInFile(fileDialog.FileName);
+                SaveFileDialog fileDialog = new SaveFileDialog();
+
+                fileDialog.Filter = "frmt files (*.frmt)|*.frmt|All files (*.*)|*.*";
+
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    _model.SaveInFile(fileDialog.FileName);
+                }
+            }
+            else
+            {
+                _model.SaveInFile(null);
             }
         }
     }
