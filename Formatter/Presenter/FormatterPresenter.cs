@@ -28,6 +28,7 @@ namespace Formatter.Presenter
                 _view.MenuFile_OpenClick += OpenFile;
                 _view.MenuFile_ClearClick += Clear;
                 _view.MenuFile_SaveClick += SaveFile;
+                _view.MenuFile_SaveHowClick += SaveHowFile;
             }
         }
 
@@ -56,23 +57,25 @@ namespace Formatter.Presenter
         public void Clear(object sender, EventArgs e) 
         {
             _view.SetText("");
+            _model.SetText("");
         }
         public void SaveFile(object sender, EventArgs e)
         {
             if (_model.GetFilename() == null)
-            {
-                SaveFileDialog fileDialog = new SaveFileDialog();
-
-                fileDialog.Filter = "frmt files (*.frmt)|*.frmt|All files (*.*)|*.*";
-
-                if (fileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    _model.SaveInFile(fileDialog.FileName);
-                }
-            }
+                SaveHowFile(sender, e);
             else
-            {
                 _model.SaveInFile(null);
+        }
+        public void SaveHowFile(object sender, EventArgs e) 
+        {
+            SaveFileDialog fileDialog = new SaveFileDialog();
+
+            fileDialog.Filter = "frmt files (*.frmt)|*.frmt|All files (*.*)|*.*";
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                _model.SaveInFile(fileDialog.FileName);
+                _model.SetFilename(fileDialog.FileName);
             }
         }
     }
