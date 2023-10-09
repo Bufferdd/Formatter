@@ -30,5 +30,31 @@ namespace FormatterTests
 
             File.Delete(filename + format);
         }
+
+        [TestMethod]
+        public void Test_LoadFromFile() 
+        {
+            string text = "Тестовый текст для проверки модели";
+            string filename = "Тест";
+            string format = ".frmt";
+
+            FormatterModel model = new FormatterModel(null);
+            Assert.IsNull(model.Text);
+            IModel iModel = model;
+
+            if (File.Exists(filename + format))
+                File.Delete(filename + format);
+            
+            using (StreamWriter writer = new StreamWriter(filename + format)) 
+            {
+                writer.Write(text);
+            }
+
+            iModel.LoadFromFile(filename, format);
+
+            Assert.AreEqual(text, model.Text);
+
+            File.Delete(filename + format);
+        }
     }
 }
