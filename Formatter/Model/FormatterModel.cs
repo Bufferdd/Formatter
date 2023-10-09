@@ -8,6 +8,10 @@ namespace Formatter.Model
 {
     public interface IModel 
     {
+        // Получить имя файла
+        string GetFilename();
+        // Поменять имя файла
+        void SetFilename(string filename);
         // Сохранение данных в файл определенного формата
         void SaveInFile(string filename);
         // Получение данных из файла определенного формата
@@ -30,7 +34,8 @@ namespace Formatter.Model
             Text = text;
             Filename = filename;
         }
-
+        string IModel.GetFilename() => Filename;
+        void IModel.SetFilename(string filename) => Filename = filename;
         void IModel.SaveInFile(string filename) 
         {
             if (_filename == null)
