@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -115,27 +116,51 @@ namespace Formatter.Presenter
         }
         public void ChooseColor(object sender, EventArgs e) 
         {
+            ColorDialog colorDialog = new ColorDialog();
 
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                
+            }
         }
         public void ChooseFormat(object sender, EventArgs e)
         {
+            FontDialog fontDialog = new FontDialog();
 
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
         public void AboutProgramShow(object sender, EventArgs e) 
         {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            AssemblyName assemblyName = assembly.GetName();
 
+            string programInfo = $"Название программы: {assemblyName.Name}\n" +
+                                    $"Версия: {assemblyName.Version}\n" +
+                                    $"Описание программы: Программа Formatter является простым текстовым редактором, который предоставляет пользователям возможность редактировать и форматировать текстовые файлы. \n" + 
+                                    $"Программа позволяет сохранять файлы в формате .frmt, а также печатать текст в принтере.";
+
+            // Создание и отображение окна с информацией о программе
+            MessageBox.Show(programInfo, "Справка", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         public void AuthorsShow(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Авторы программы:\n\n" +
+                            "Гусев Павел Александрович - разработчик модели (Model)\n" +
+                            "Доможиров Владислав Вячеславович - разработчик представления (View)\n" +
+                            "Ковацкий Алексей Александрович - разработчик презентера (Presenter)\n",
+                            "О программе",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         public void Text_TextChanged(object sender, EventArgs e)
         {
-
+            _model.SetText(_view.GetText());
         }
         public void Text_KeyPress(object sender, EventArgs e)
         {
-
+            // Тут возможен контроль над вводом
         }
     }
 }
