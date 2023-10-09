@@ -21,7 +21,7 @@ namespace Formatter
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            FormatterPresenter presenter = new FormatterPresenter(new FormatterView(), new FormatterModel(null));
+            FormatterPresenter presenter = new FormatterPresenter(new FormatterView(), new FormatterModel(null, null));
             IPresenter iPresenter = presenter;
             iPresenter.Run();
         }

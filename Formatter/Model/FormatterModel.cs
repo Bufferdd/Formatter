@@ -12,6 +12,12 @@ namespace Formatter.Model
         string GetFilename();
         // Поменять имя файла
         void SetFilename(string filename);
+        // Получить текст
+        string GetText();
+        // Поменять текст
+        void SetText(string text);
+        // Добавить текст
+        void AddText(string text);
         // Сохранение данных в файл определенного формата
         void SaveInFile(string filename);
         // Получение данных из файла определенного формата
@@ -35,6 +41,9 @@ namespace Formatter.Model
             Filename = filename;
         }
         string IModel.GetFilename() => Filename;
+        string IModel.GetText() => Text;
+        void IModel.SetText(string text) => Text = text;
+        void IModel.AddText(string text) => Text += text;
         void IModel.SetFilename(string filename) => Filename = filename;
         void IModel.SaveInFile(string filename) 
         {
