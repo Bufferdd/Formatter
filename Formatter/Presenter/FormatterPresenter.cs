@@ -7,7 +7,7 @@ using Formatter.View;
 
 namespace Formatter.Presenter
 {
-    class FormatterPresenter
+    public class FormatterPresenter
     {
         private IModel _model;
         private IView _view;
@@ -15,10 +15,12 @@ namespace Formatter.Presenter
         public FormatterPresenter(IView view, IModel model)
         {
             _view = view;
-            _model = new FormatterModel(null);
+            _model = model;
 
-            _view.MenuFile_CreateClick += CreateFile;
-            _view.MenuFile_OpenClick += OpenFile;
+            if (_view != null)
+            {
+                _view.MenuFile_CreateClick += CreateFile;
+            }
         }
 
         public void CreateFile(object sender, EventArgs e) 
@@ -28,6 +30,5 @@ namespace Formatter.Presenter
                 
             }
         }
-
     }
 }
