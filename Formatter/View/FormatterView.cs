@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Formatter
+namespace Formatter.View
 {
     public interface IView
     {
@@ -20,6 +20,8 @@ namespace Formatter
         void AddText(string text);
         // Вывести ошибку
         void ShowError(string error);
+
+        void 
     }
     public partial class FormatterView : Form, IView
     {

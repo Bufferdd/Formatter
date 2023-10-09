@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenter\FormatterPresenter.cs" />
     <Compile Include="View\FormatterView.cs">
       <SubType>Form</SubType>
     </Compile>
