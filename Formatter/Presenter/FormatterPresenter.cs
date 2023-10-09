@@ -32,7 +32,7 @@ namespace Formatter.Presenter
 
         void IPresenter.Run() 
         {
-
+            _view.Show();
         }
 
         public void CreateFile(object sender, EventArgs e) 
