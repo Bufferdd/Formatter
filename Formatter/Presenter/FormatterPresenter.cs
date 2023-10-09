@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -39,8 +41,11 @@ namespace Formatter.Presenter
         public void CreateFile(object sender, EventArgs e) 
         {
             string filename = @"Новый formatter.frmt";
-            File.Create(filename);
-            _model.SetFilename(filename);
+
+            using (StreamWriter stream = new StreamWriter(filename)) { }
+
+            if(_model != null)
+                _model.SetFilename(filename);
         }
         public void OpenFile(object sender, EventArgs e)
         {
