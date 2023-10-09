@@ -59,13 +59,20 @@ namespace Formatter.Presenter
         }
         public void SaveFile(object sender, EventArgs e)
         {
-            SaveFileDialog fileDialog = new SaveFileDialog();
-
-            fileDialog.Filter = "frmt files (*.frmt)|*.frmt|All files (*.*)|*.*";
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            if (_model.GetFilename() == null)
             {
-                _model.SaveInFile(fileDialog.FileName);
+                SaveFileDialog fileDialog = new SaveFileDialog();
+
+                fileDialog.Filter = "frmt files (*.frmt)|*.frmt|All files (*.*)|*.*";
+
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    _model.SaveInFile(fileDialog.FileName);
+                }
+            }
+            else
+            {
+                _model.SaveInFile(null);
             }
         }
     }
