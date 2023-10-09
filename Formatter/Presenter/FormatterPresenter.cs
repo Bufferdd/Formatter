@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 using Formatter.Model;
 using Formatter.View;
@@ -18,6 +16,18 @@ namespace Formatter.Presenter
         {
             _view = view;
             _model = new FormatterModel(null);
+
+            _view.MenuFile_CreateClick += CreateFile;
+            _view.MenuFile_OpenClick += OpenFile;
         }
+
+        public void CreateFile(object sender, EventArgs e) 
+        {
+            using (StreamWriter writer = new StreamWriter(@"Новый formatter.frmt")) 
+            {
+                
+            }
+        }
+
     }
 }
