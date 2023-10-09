@@ -45,6 +45,8 @@ namespace Formatter.Presenter
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
 
+            fileDialog.Filter = "frmt files (*.frmt)|*.frmt|All files (*.*)|*.*";
+
             if (fileDialog.ShowDialog() == DialogResult.OK)
                 _model.LoadFromFile(fileDialog.FileName);
         }
