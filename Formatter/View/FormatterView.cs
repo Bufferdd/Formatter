@@ -38,6 +38,13 @@ namespace Formatter.View
         // События с меню-справкой
         event EventHandler MenuReference_AboutProgramClick;
         event EventHandler MenuReference_AuthorsClick;
+
+        // Параметры шрифта в правом окне
+        void SetFontSize(string fontSize);
+        void SetFont(string font);
+        void SetFontStyle(string font);
+        void SetFontColor(string color);
+        void SetFontSet(string fontSet);
     }
     public partial class FormatterView : Form, IView
     {
@@ -128,6 +135,12 @@ namespace Formatter.View
         private void listRichTextBox_TextChanged(object sender, EventArgs e) => Text_TextChanged?.Invoke(this, e);
 
         private void listRichTextBox_KeyPress(object sender, KeyPressEventArgs e) => Text_KeyPress?.Invoke(this, e);
+
+        void IView.SetFontSize(string fontSize) => fontSizeTextBox.Text = fontSize;
+        void IView.SetFont(string font) => fontTextBox.Text = font;
+        void IView.SetFontStyle(string fontStyle) => fontStyleTextBox.Text = fontStyle;
+        void IView.SetFontColor(string fontColor) => fontColorTextBox.Text = fontColor;
+        void IView.SetFontSet(string fontSet) => fontSetTextBox.Text = fontSet;
     }
 }
 
