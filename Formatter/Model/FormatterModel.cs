@@ -9,9 +9,9 @@ namespace Formatter.Model
     public interface IModel 
     {
         // Сохранение данных в файл определенного формата
-        void SaveInFile(string filename, string fileformat = ".frmt");
+        void SaveInFile(string filename);
         // Получение данных из файла определенного формата
-        void LoadFromFile(string filename, string fileformat = ".frmt");
+        void LoadFromFile(string filename);
     }
 
     // Модель класса Formatter
@@ -27,16 +27,16 @@ namespace Formatter.Model
             Text = text;
         }
 
-        void IModel.SaveInFile(string filename, string fileformat) 
+        void IModel.SaveInFile(string filename) 
         {
-            using (StreamWriter writer = new StreamWriter(filename + fileformat)) 
+            using (StreamWriter writer = new StreamWriter(filename)) 
             {
                 writer.Write(_text);
             }
         }
-        void IModel.LoadFromFile(string filename, string fileformat) 
+        void IModel.LoadFromFile(string filename) 
         {
-            using (StreamReader reader = new StreamReader(filename + fileformat))
+            using (StreamReader reader = new StreamReader(filename))
             {
                 _text = reader.ReadToEnd();
             }

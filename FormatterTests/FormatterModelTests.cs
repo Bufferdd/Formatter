@@ -13,48 +13,46 @@ namespace FormatterTests
         public void Test_SaveInFile()
         {
             string text = "Тестовый текст для проверки модели";
-            string filename = "Тест";
-            string format = ".frmt";
+            string filename = "Тест.frmt";
 
             FormatterModel model = new FormatterModel(text);
             IModel iModel = model;
 
-            iModel.SaveInFile(filename, format);
+            iModel.SaveInFile(filename);
 
-            Assert.AreEqual(true, File.Exists(filename + format));
+            Assert.AreEqual(true, File.Exists(filename));
 
-            using (StreamReader reader = new StreamReader(filename + format)) 
+            using (StreamReader reader = new StreamReader(filename)) 
             {
                 Assert.AreEqual(text, reader.ReadToEnd());
             }
 
-            File.Delete(filename + format);
+            File.Delete(filename);
         }
 
         [TestMethod]
         public void Test_LoadFromFile() 
         {
             string text = "Тестовый текст для проверки модели";
-            string filename = "Тест";
-            string format = ".frmt";
+            string filename = "Тест.frmt";
 
             FormatterModel model = new FormatterModel(null);
             Assert.IsNull(model.Text);
             IModel iModel = model;
 
-            if (File.Exists(filename + format))
-                File.Delete(filename + format);
+            if (File.Exists(filename))
+                File.Delete(filename);
             
-            using (StreamWriter writer = new StreamWriter(filename + format)) 
+            using (StreamWriter writer = new StreamWriter(filename)) 
             {
                 writer.Write(text);
             }
 
-            iModel.LoadFromFile(filename, format);
+            iModel.LoadFromFile(filename);
 
             Assert.AreEqual(text, model.Text);
 
-            File.Delete(filename + format);
+            File.Delete(filename);
         }
     }
 }
