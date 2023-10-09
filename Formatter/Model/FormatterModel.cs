@@ -33,16 +33,36 @@ namespace Formatter.Model
 
         void IModel.SaveInFile(string filename) 
         {
-            using (StreamWriter writer = new StreamWriter(filename)) 
+            if (_filename == null)
             {
-                writer.Write(_text);
+                using (StreamWriter writer = new StreamWriter(filename))
+                {
+                    writer.Write(_text);
+                }
+            }
+            else
+            {
+                using (StreamWriter writer = new StreamWriter(_filename))
+                {
+                    writer.Write(_text);
+                }
             }
         }
-        void IModel.LoadFromFile(string filename) 
+        void IModel.LoadFromFile(string filename)
         {
-            using (StreamReader reader = new StreamReader(filename))
+            if (_filename == null)
             {
-                _text = reader.ReadToEnd();
+                using (StreamReader reader = new StreamReader(filename))
+                {
+                    _text = reader.ReadToEnd();
+                }
+            }
+            else
+            {
+                using (StreamReader reader = new StreamReader(_filename))
+                {
+                    _text = reader.ReadToEnd();
+                }
             }
         }
     }
