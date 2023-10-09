@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Formatter.Model;
 using Formatter.View;
+using Formatter.Presenter;
 
 namespace Formatter
 {
@@ -19,9 +21,9 @@ namespace Formatter
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
-
-            Application.Run(new FormatterView());
+            FormatterPresenter presenter = new FormatterPresenter(new FormatterView(), new FormatterModel(null));
+            IPresenter iPresenter = presenter;
+            iPresenter.Run();
         }
     }
 }
