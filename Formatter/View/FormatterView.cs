@@ -28,6 +28,7 @@ namespace Formatter.View
         // События с текстом
         event EventHandler Text_TextChanged;
         event EventHandler Text_KeyPress;
+        event EventHandler Text_MouseUp;
 
         // События с меню
         event EventHandler MenuFile_CreateClick;
@@ -57,6 +58,7 @@ namespace Formatter.View
         // События с текстом
         public event EventHandler Text_TextChanged;
         public event EventHandler Text_KeyPress;
+        public event EventHandler Text_MouseUp;
 
         // События с меню
         public event EventHandler MenuFile_CreateClick;
@@ -111,6 +113,7 @@ namespace Formatter.View
         private void listRichTextBox_TextChanged(object sender, EventArgs e) => Text_TextChanged?.Invoke(this, e);
 
         private void listRichTextBox_KeyPress(object sender, KeyPressEventArgs e) => Text_KeyPress?.Invoke(this, e);
+        private void listRichTextBox_MouseUp(object sender, MouseEventArgs e) => Text_MouseUp?.Invoke(this, e);
         void IView.SetFontSize(string fontSize) => fontSizeTextBox.Text = fontSize;
         void IView.SetFont(string font) => fontTextBox.Text = font;
         void IView.SetFontStyle(string fontStyle) => fontStyleTextBox.Text = fontStyle;
