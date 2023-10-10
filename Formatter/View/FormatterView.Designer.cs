@@ -277,8 +277,10 @@ namespace Formatter.View
             this.Controls.Add(this.settingsGroupBox);
             this.Controls.Add(this.listRichTextBox);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "FormatterView";
             this.Text = "Formatter";
             this.menuStrip1.ResumeLayout(false);
