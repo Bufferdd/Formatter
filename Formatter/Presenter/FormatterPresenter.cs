@@ -122,7 +122,7 @@ namespace Formatter.Presenter
 
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                
+                _view.SetSelectionTextColor(colorDialog.Color);
             }
         }
         public void ChooseFormat(object sender, EventArgs e)
@@ -133,7 +133,7 @@ namespace Formatter.Presenter
 
                 if (fontDialog.ShowDialog() == DialogResult.OK)
                 {
-
+                    _view.SetSelectionTextFont(fontDialog.Font);
                 }
             }
             catch (Exception ex) 
