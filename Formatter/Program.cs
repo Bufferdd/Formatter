@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Formatter.Model;
+using Formatter.View;
+using Formatter.Presenter;
+
 namespace Formatter
 {
     static class Program
@@ -16,7 +20,10 @@ namespace Formatter
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            FormatterPresenter presenter = new FormatterPresenter(new FormatterView(), new FormatterModel(null, null));
+            IPresenter iPresenter = presenter;
+            iPresenter.Run();
         }
     }
 }
