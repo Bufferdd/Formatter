@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace Formatter.Model
 {
@@ -106,6 +107,28 @@ namespace Formatter.Model
                 {
                     _text = reader.ReadToEnd();
                 }
+
+                // Шаблон регулярного выражения для поиска цвета
+                string pattern = @"\[color:\s*(\d+);(\d+);(\d+)\]";
+
+                // Создание экземпляра класса Regex
+                Regex regex = new Regex(pattern);
+
+                int lengthPatterns = 0;
+                // Замена всех вхождений шаблона на пустую строку и сохранение значений в список
+                _text = regex.Replace(_text, match =>
+                {
+                    // Извлечение значений цвета из совпадения
+                    string red = match.Groups[1].Value;
+                    string green = match.Groups[2].Value;
+                    string blue = match.Groups[3].Value;
+
+                    Colors.Add(match.Index - lengthPatterns, Color.FromArgb(Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue)));
+                    lengthPatterns += match.Length;
+
+                    // Замена совпадения на пустую строку
+                    return "";
+                });
             }
             else
             {

@@ -31,7 +31,7 @@ namespace FormatterTests
             File.Delete(filename);
         }
         [TestMethod]
-        public void Test_SaveInFileColor() 
+        public void Test_SaveInFileColors() 
         {
             string text = "Тестовый текст для проверки модели";
             string textWithColor = "Тес[color: 255;0;0]товый т[color: 0;128;0]ек[color: 0;0;255]ст для проверки модели";
@@ -106,6 +106,37 @@ namespace FormatterTests
             iModel.LoadFromFile(filename);
 
             Assert.AreEqual(text, model.Text);
+
+            File.Delete(filename);
+        }
+        [TestMethod]
+        public void Test_LoadFromFileColors()
+        {
+            string textFile = "Тес[color: 255;0;0]товый т[color: 0;128;0]ек[color: 0;0;255]ст для проверки модели";
+            string text = "Тестовый текст для проверки модели";
+            string filename = "Тест.frmt";
+
+            FormatterModel model = new FormatterModel(null, null);
+            Assert.IsNull(model.Text);
+            IModel iModel = model;
+
+            if (File.Exists(filename))
+                File.Delete(filename);
+
+            using (StreamWriter writer = new StreamWriter(filename))
+            {
+                writer.Write(textFile);
+            }
+
+            iModel.LoadFromFile(filename);
+
+            Assert.AreEqual(text, model.Text);
+            Assert.IsTrue(model.Colors.ContainsKey(3));
+            Assert.IsTrue(model.Colors.ContainsKey(10));
+            Assert.IsTrue(model.Colors.ContainsKey(12));
+            Assert.AreEqual(Color.FromArgb(255, 0, 0), model.Colors[3]);
+            Assert.AreEqual(Color.FromArgb(0, 128, 0), model.Colors[10]);
+            Assert.AreEqual(Color.FromArgb(0, 0, 255), model.Colors[12]);
 
             File.Delete(filename);
         }
