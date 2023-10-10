@@ -12,6 +12,10 @@ namespace Formatter.View
         void Close();
         // Получить текст
         string GetText();
+        // Получить первый индекс выделенного текста
+        int GetSelectionStart();
+        // Получить длину
+        int GetSelectionLength();
         // Получить выделенный текст
         string GetSelectionText();
         // Получить цвет выделенного текста
@@ -85,6 +89,8 @@ namespace Formatter.View
         void IView.Show() => Application.Run(this);
         void IView.Close() => Application.Exit();
         string IView.GetText() => listRichTextBox.Text;
+        int IView.GetSelectionStart() => listRichTextBox.SelectionStart;
+        int IView.GetSelectionLength() => listRichTextBox.SelectionLength;
         string IView.GetSelectionText() => listRichTextBox.SelectedText;
         Color IView.GetSelectionTextColor() => listRichTextBox.SelectionColor;
         Font IView.GetSelectionTextFont() => listRichTextBox.SelectionFont;
