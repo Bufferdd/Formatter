@@ -109,14 +109,14 @@ namespace Formatter.Model
                 }
 
                 // Шаблон регулярного выражения для поиска цвета
-                string pattern = @"\[color:\s*(\d+);(\d+);(\d+)\]";
+                string patternColor = @"\[color:\s*(\d+);(\d+);(\d+)\]";
 
                 // Создание экземпляра класса Regex
-                Regex regex = new Regex(pattern);
+                Regex regexColor = new Regex(patternColor);
 
                 int lengthPatterns = 0;
                 // Замена всех вхождений шаблона на пустую строку и сохранение значений в список
-                _text = regex.Replace(_text, match =>
+                _text = regexColor.Replace(_text, match =>
                 {
                     // Извлечение значений цвета из совпадения
                     string red = match.Groups[1].Value;
@@ -129,13 +129,87 @@ namespace Formatter.Model
                     // Замена совпадения на пустую строку
                     return "";
                 });
+
+                // Шаблон регулярного выражения для поиска и замены
+                string patternFont = @"\[font:\s(\d+\W?\d+);([\w*\s*]*);(\w+)\]";
+
+                // Создание экземпляра класса Regex
+                Regex regexFont = new Regex(patternFont);
+                lengthPatterns = 0;
+                // Замена всех вхождений шаблона на пустую строку и сохранение значений в список
+                _text = regexFont.Replace(_text, match =>
+                {
+                    string[] font = match.Groups[0].Value.Split(';', ']', '[');
+                    // Извлечение значений шрифта из совпадения
+                    string fontSize = font[1].Substring(6, font[1].Length - 6);
+                    string fontFamily = font[2];
+                    string fontStyleStr = font[3];
+
+                    float size;
+                    float.TryParse(fontSize, out size);
+                    FontStyle fontStyle = (FontStyle)Enum.Parse(typeof(FontStyle), fontStyleStr);
+                    Fonts.Add(match.Index - lengthPatterns, new Font(fontFamily, size, fontStyle));
+
+                    lengthPatterns += match.Length;
+
+                    // Замена совпадения на пустую строку
+                    return "";
+                });
             }
             else
             {
-                using (StreamReader reader = new StreamReader(_filename))
+                using (StreamReader reader = new StreamReader(filename))
                 {
                     _text = reader.ReadToEnd();
                 }
+
+                // Шаблон регулярного выражения для поиска цвета
+                string patternColor = @"\[color:\s*(\d+);(\d+);(\d+)\]";
+
+                // Создание экземпляра класса Regex
+                Regex regexColor = new Regex(patternColor);
+
+                int lengthPatterns = 0;
+                // Замена всех вхождений шаблона на пустую строку и сохранение значений в список
+                _text = regexColor.Replace(_text, match =>
+                {
+                    // Извлечение значений цвета из совпадения
+                    string red = match.Groups[1].Value;
+                    string green = match.Groups[2].Value;
+                    string blue = match.Groups[3].Value;
+
+                    Colors.Add(match.Index - lengthPatterns, Color.FromArgb(Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue)));
+                    lengthPatterns += match.Length;
+
+                    // Замена совпадения на пустую строку
+                    return "";
+                });
+
+                // Шаблон регулярного выражения для поиска и замены
+                string patternFont = @"\[font:\s(\d+\W?\d+);([\w*\s*]*);(\w+)\]";
+
+                // Создание экземпляра класса Regex
+                Regex regexFont = new Regex(patternFont);
+                lengthPatterns = 0;
+                // Замена всех вхождений шаблона на пустую строку и сохранение значений в список
+                _text = regexFont.Replace(_text, match =>
+                {
+                    string[] font = match.Groups[0].Value.Split(';', ']', '[');
+                    // Извлечение значений шрифта из совпадения
+                    string fontSize = font[1].Substring(6, font[1].Length - 6);
+                    string fontFamily = font[2];
+                    string fontStyleStr = font[3];
+
+                    float size;
+                    float.TryParse(fontSize, out size);
+                    FontStyle fontStyle = (FontStyle)Enum.Parse(typeof(FontStyle), fontStyleStr);
+                    Fonts.Add(match.Index - lengthPatterns, new Font(fontFamily, size, fontStyle));
+
+                    lengthPatterns += match.Length;
+
+                    // Замена совпадения на пустую строку
+                    return "";
+                });
             }
         }
     }
