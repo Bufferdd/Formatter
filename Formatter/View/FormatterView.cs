@@ -22,6 +22,10 @@ namespace Formatter.View
         void SetText(string text);
         // Добавить текст
         void AddText(string text);
+        // Задать цвет выделенного текста
+        void SetSelectionTextColor(Color color);
+        // Задать шрифт выделенного текста
+        void SetSelectionTextFont(Font font);
         // Вывести ошибку
         void ShowError(string error);
 
@@ -51,7 +55,6 @@ namespace Formatter.View
         void SetFont(string font);
         void SetFontStyle(string font);
         void SetFontColor(string color);
-        void SetFontSet(string fontSet);
     }
     public partial class FormatterView : Form, IView
     {
@@ -88,6 +91,8 @@ namespace Formatter.View
         void IView.SetText(string text) => listRichTextBox.Text = text;
        
         void IView.AddText(string text) => listRichTextBox.Text += text;
+        void IView.SetSelectionTextColor(Color color) => listRichTextBox.SelectionColor = color;
+        void IView.SetSelectionTextFont(Font font) => listRichTextBox.SelectionFont = font;
         void IView.ShowError(string error) => MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         private void createToolStripMenuItem_Click(object sender, EventArgs e) => MenuFile_CreateClick?.Invoke(this, e);
@@ -118,7 +123,6 @@ namespace Formatter.View
         void IView.SetFont(string font) => fontTextBox.Text = font;
         void IView.SetFontStyle(string fontStyle) => fontStyleTextBox.Text = fontStyle;
         void IView.SetFontColor(string fontColor) => fontColorTextBox.Text = fontColor;
-        void IView.SetFontSet(string fontSet) => fontSetTextBox.Text = fontSet;
     }
 }
 
