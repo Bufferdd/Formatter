@@ -68,12 +68,12 @@ namespace Formatter.Model
                     {
                         if (Colors.ContainsKey(i))
                         {
-                            writer.Write($"[color: {Colors[i]}]");
+                            writer.Write($"[color: {Colors[i].R};{Colors[i].G};{Colors[i].B}]");
                         }
                         if (Fonts.ContainsKey(i))
                         {
                             Font font = Fonts[i];
-                            writer.Write($"[font: {font.Size}, {font.Name}, {font.Style}]");
+                            writer.Write($"[font: {font.Size};{font.Name};{font.Style}]");
                         }
                         writer.Write(Text[i]);
                     }
@@ -128,7 +128,13 @@ namespace Formatter.Model
                         float size;
                         float.TryParse(fontSize, out size);
                         FontStyle fontStyle = (FontStyle)Enum.Parse(typeof(FontStyle), fontStyleStr);
-                        Fonts.Add(match.Index - lengthPatterns, new Font(fontFamily, size, fontStyle));
+
+                        int key = match.Index - lengthPatterns;
+
+                        if (Fonts.ContainsKey(key))
+                            Fonts[key] = new Font(fontFamily, size, fontStyle);
+                        else
+                            Fonts.Add(key, new Font(fontFamily, size, fontStyle));
                     }
                     else if (match.Groups[0].Value.Substring(1, 5) == "color")
                     {
@@ -138,7 +144,12 @@ namespace Formatter.Model
                         string green = color[2];
                         string blue = color[3];
 
-                        Colors.Add(match.Index - lengthPatterns, Color.FromArgb(Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue)));
+                        int key = match.Index - lengthPatterns;
+
+                        if (Colors.ContainsKey(key))
+                            Colors[key] = Color.FromArgb(Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
+                        else
+                            Colors.Add(key, Color.FromArgb(Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue)));
                     }
                     lengthPatterns += match.Length;
                     return "";
@@ -171,7 +182,13 @@ namespace Formatter.Model
                         float size;
                         float.TryParse(fontSize, out size);
                         FontStyle fontStyle = (FontStyle)Enum.Parse(typeof(FontStyle), fontStyleStr);
-                        Fonts.Add(match.Index - lengthPatterns, new Font(fontFamily, size, fontStyle));
+
+                        int key = match.Index - lengthPatterns;
+
+                        if (Fonts.ContainsKey(key))
+                            Fonts[key] = new Font(fontFamily, size, fontStyle);
+                        else
+                            Fonts.Add(key, new Font(fontFamily, size, fontStyle));
                     }
                     else if (match.Groups[0].Value.Substring(1, 5) == "color")
                     {
@@ -181,10 +198,15 @@ namespace Formatter.Model
                         string green = color[2];
                         string blue = color[3];
 
-                        Colors.Add(match.Index - lengthPatterns, Color.FromArgb(Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue)));
-                        lengthPatterns += match.Length;
+                        int key = match.Index - lengthPatterns;
+
+                        if (Colors.ContainsKey(key))
+                            Colors[key] = Color.FromArgb(Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue));
+                        else
+                            Colors.Add(key, Color.FromArgb(Convert.ToInt32(red), Convert.ToInt32(green), Convert.ToInt32(blue)));
                     }
 
+                    lengthPatterns += match.Length;
                     return "";
                 });
             }
