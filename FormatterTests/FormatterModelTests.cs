@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.Drawing;
 
 using Formatter.Model;
 
@@ -29,7 +30,32 @@ namespace FormatterTests
 
             File.Delete(filename);
         }
+        [TestMethod]
+        public void Test_SaveInFileColor() 
+        {
+            string text = "Тестовый текст для проверки модели";
+            string textWithColor = "Тес[color: 255,0,0]товый т[color: 0,128,0]ек[color: 0,0,255]ст для проверки модели";
+            string filename = "Тест.frmt";
 
+            FormatterModel model = new FormatterModel(text, filename);
+            IModel iModel = model;
+
+            model.Colors.Add(3, Color.Red);
+            model.Colors.Add(10, Color.Green);
+            model.Colors.Add(12, Color.Blue);
+
+            iModel.SaveInFile(filename);
+
+            Assert.AreEqual(true, File.Exists(filename));
+
+            using (StreamReader reader = new StreamReader(filename))
+            {
+                string textNew = reader.ReadToEnd();
+                Assert.AreEqual(textWithColor, textNew);
+            }
+
+            File.Delete(filename);
+        }
         [TestMethod]
         public void Test_LoadFromFile() 
         {

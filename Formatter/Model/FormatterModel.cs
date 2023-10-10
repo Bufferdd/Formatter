@@ -47,6 +47,8 @@ namespace Formatter.Model
         {
             Text = text;
             Filename = filename;
+            Colors = new Dictionary<int, Color>();
+            Fonts = new Dictionary<int, Font>();
         }
         string IModel.GetFilename() => Filename;
         string IModel.GetText() => Text;
@@ -61,14 +63,38 @@ namespace Formatter.Model
             {
                 using (StreamWriter writer = new StreamWriter(filename))
                 {
-                    writer.Write(_text);
+                    for (int i = 0; i < Text.Length; ++i)
+                    {
+                        if (Colors.ContainsKey(i))
+                        {
+                            writer.Write($"[color: {Colors[i]}]");
+                        }
+                        if (Fonts.ContainsKey(i))
+                        {
+                            Font font = Fonts[i];
+                            writer.Write($"[font: {font.Size}, {font.Name}, {font.Style}]");
+                        }
+                        writer.Write(Text[i]);
+                    }
                 }
             }
             else
             {
                 using (StreamWriter writer = new StreamWriter(_filename))
                 {
-                    writer.Write(_text);
+                    for (int i = 0; i < Text.Length; ++i)
+                    {
+                        if (Colors.ContainsKey(i))
+                        {
+                            writer.Write($"[color: {Colors[i].R},{Colors[i].G},{Colors[i].B}]");
+                        }
+                        if (Fonts.ContainsKey(i))
+                        {
+                            Font font = Fonts[i];
+                            writer.Write($"[font: {font.Size},{font.Name},{font.Style}]");
+                        }
+                        writer.Write(Text[i]);
+                    }
                 }
             }
         }
