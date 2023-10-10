@@ -29,6 +29,7 @@ namespace Formatter.View
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormatterView));
             this.listRichTextBox = new System.Windows.Forms.RichTextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,8 +48,6 @@ namespace Formatter.View
             this.settingsGroupBox = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.fontColorTextBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.fontSetTextBox = new System.Windows.Forms.TextBox();
             this.fontTextBox = new System.Windows.Forms.TextBox();
             this.fontStyleTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -189,8 +188,6 @@ namespace Formatter.View
             // 
             this.settingsGroupBox.Controls.Add(this.label4);
             this.settingsGroupBox.Controls.Add(this.fontColorTextBox);
-            this.settingsGroupBox.Controls.Add(this.label3);
-            this.settingsGroupBox.Controls.Add(this.fontSetTextBox);
             this.settingsGroupBox.Controls.Add(this.fontTextBox);
             this.settingsGroupBox.Controls.Add(this.fontStyleTextBox);
             this.settingsGroupBox.Controls.Add(this.label2);
@@ -199,14 +196,14 @@ namespace Formatter.View
             this.settingsGroupBox.Controls.Add(this.fontSizeTextBox);
             this.settingsGroupBox.Location = new System.Drawing.Point(569, 27);
             this.settingsGroupBox.Name = "settingsGroupBox";
-            this.settingsGroupBox.Size = new System.Drawing.Size(203, 283);
+            this.settingsGroupBox.Size = new System.Drawing.Size(203, 232);
             this.settingsGroupBox.TabIndex = 2;
             this.settingsGroupBox.TabStop = false;
             this.settingsGroupBox.Text = "Параметры выделенного текста";
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(6, 223);
+            this.label4.Location = new System.Drawing.Point(6, 174);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(191, 23);
             this.label4.TabIndex = 9;
@@ -215,28 +212,11 @@ namespace Formatter.View
             // 
             // fontColorTextBox
             // 
-            this.fontColorTextBox.Location = new System.Drawing.Point(9, 249);
+            this.fontColorTextBox.Location = new System.Drawing.Point(9, 200);
             this.fontColorTextBox.Name = "fontColorTextBox";
             this.fontColorTextBox.ReadOnly = true;
             this.fontColorTextBox.Size = new System.Drawing.Size(188, 20);
             this.fontColorTextBox.TabIndex = 8;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(6, 174);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(191, 23);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Набор символов";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // fontSetTextBox
-            // 
-            this.fontSetTextBox.Location = new System.Drawing.Point(9, 200);
-            this.fontSetTextBox.Name = "fontSetTextBox";
-            this.fontSetTextBox.ReadOnly = true;
-            this.fontSetTextBox.Size = new System.Drawing.Size(188, 20);
-            this.fontSetTextBox.TabIndex = 6;
             // 
             // fontTextBox
             // 
@@ -297,7 +277,10 @@ namespace Formatter.View
             this.Controls.Add(this.settingsGroupBox);
             this.Controls.Add(this.listRichTextBox);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "FormatterView";
             this.Text = "Formatter";
             this.menuStrip1.ResumeLayout(false);
@@ -335,8 +318,6 @@ namespace Formatter.View
         private System.Windows.Forms.TextBox fontSizeTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox fontColorTextBox;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox fontSetTextBox;
     }
 }
 
