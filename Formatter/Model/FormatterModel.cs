@@ -18,6 +18,8 @@ namespace Formatter.Model
         void SetText(string text);
         // Добавить текст
         void AddText(string text);
+        Dictionary<int, Color> GetColors();
+        Dictionary<int, Font> GetFonts();
         // Сохранение данных в файл определенного формата
         void SaveInFile(string filename);
         // Получение данных из файла определенного формата
@@ -29,11 +31,17 @@ namespace Formatter.Model
     {
         private string _text;
         private string _filename;
+        private Dictionary<int, Color> _colors;
+        private Dictionary<int, Font> _fonts;
 
         // Весь текст
         public string Text { get { return _text; } set { _text = value; } }
         // Файл, в котором хранится текст
         public string Filename { get { return _filename; } set { _filename = value; } }
+        // Ключ - индекс текста, с которого начинается выбранный цвет, значение - этот самый цвет
+        public Dictionary<int, Color> Colors { get { return _colors; } set { _colors = value; } }
+        // Ключ - индекс текста, с которого начинается выбранный шрифт, значение - этот самый шрифт
+        public Dictionary<int, Font> Fonts { get { return _fonts; } set { _fonts = value; } }
         // Конструктор
         public FormatterModel(string text, string filename)
         {
