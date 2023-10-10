@@ -52,6 +52,8 @@ namespace Formatter.Model
         string IModel.GetText() => Text;
         void IModel.SetText(string text) => Text = text;
         void IModel.AddText(string text) => Text += text;
+        Dictionary<int, Color> IModel.GetColors() => Colors;
+        Dictionary<int, Font> IModel.GetFonts() => Fonts;
         void IModel.SetFilename(string filename) => Filename = filename;
         void IModel.SaveInFile(string filename) 
         {
