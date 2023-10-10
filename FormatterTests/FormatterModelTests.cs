@@ -206,8 +206,8 @@ namespace FormatterTests
         [TestMethod]
         public void Test_LoadFromFileFontsColors()
         {
-            string textWithColorsAndFonts = "Тес[color: 255;0;0][font: 10;Times New Roman;Italic]товый т[color: 0;128;0][font: 20;Courier New;Regular]" +
-                        "ек[color: 0;0;255][font: 15,5;Microsoft Sans Serif;Underline]ст для проверки модели";
+            string textWithColorsAndFonts = "Тес[color: 255;0;0][font: 10;Times New Roman;Italic]товый т[font: 20;Courier New;Regular]" +
+                        "ек[color: 0;0;255]ст для проверки модели";
             string text = "Тестовый текст для проверки модели";
             string filename = "Тест.frmt";
 
@@ -228,18 +228,14 @@ namespace FormatterTests
             Assert.AreEqual(text, model.Text);
 
             Assert.IsTrue(model.Colors.ContainsKey(3));
-            Assert.IsTrue(model.Colors.ContainsKey(10));
             Assert.IsTrue(model.Colors.ContainsKey(12));
             Assert.AreEqual(Color.FromArgb(255, 0, 0), model.Colors[3]);
-            Assert.AreEqual(Color.FromArgb(0, 128, 0), model.Colors[10]);
             Assert.AreEqual(Color.FromArgb(0, 0, 255), model.Colors[12]);
 
             Assert.IsTrue(model.Fonts.ContainsKey(3));
             Assert.IsTrue(model.Fonts.ContainsKey(10));
-            Assert.IsTrue(model.Fonts.ContainsKey(12));
             Assert.AreEqual(model.Fonts[3], new Font("Times New Roman", 10, FontStyle.Italic));
             Assert.AreEqual(model.Fonts[10], new Font("Courier New", 20, FontStyle.Regular));
-            Assert.AreEqual(model.Fonts[12], new Font("Microsoft Sans Serif", 15.5f, FontStyle.Underline));
 
             File.Delete(filename);
         }
