@@ -43,6 +43,15 @@ namespace Formatter.Presenter
                 _view.Text_TextChanged += Text_TextChanged;
                 _view.Text_KeyPress += Text_KeyPress;
                 _view.Text_MouseUp += Text_MouseUp;
+
+                _view.SetSelectionTextColor(Color.Black);
+                _view.SetSelectionTextFont(new Font("Times New Roman", 14, FontStyle.Regular));
+            }
+
+            if (_model != null)
+            {
+                _model.GetColors().Add(0, Color.Black);
+                _model.GetFonts().Add(0, new Font("Times New Roman", 14, FontStyle.Regular));
             }
         }
 
@@ -67,15 +76,45 @@ namespace Formatter.Presenter
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
+                _model.GetColors().Clear();
+                _model.SetText("");
+                _model.GetFonts().Clear();
+
                 _model.LoadFromFile(fileDialog.FileName);
                 _model.SetFilename(fileDialog.FileName);
                 _view.SetText(_model.GetText());
+
+                int length = _model.GetText().Length;
+                int borderColor = length;
+                int borderFont = length;
+                for (int i = length - 1; i >= 0; --i)
+                {
+                    if (_model.GetColors().ContainsKey(i))
+                    {
+                        _view.SetSelectionLength(borderColor - i);
+                        _view.SetSelectionStart(i);
+
+                        _view.SetSelectionTextColor(_model.GetColors()[i]);
+                        borderColor = i;
+                    }
+
+                    if (_model.GetFonts().ContainsKey(i))
+                    {
+                        _view.SetSelectionLength(borderFont - i);
+                        _view.SetSelectionStart(i);
+
+                        _view.SetSelectionTextFont(_model.GetFonts()[i]);
+                        borderFont = i;
+                    }
+                }
             }
         }
         public void Clear(object sender, EventArgs e) 
         {
             _view.SetText("");
             _model.SetText("");
+            _model.GetColors().Clear();
+            _model.GetFonts().Clear();
         }
         public void SaveFile(object sender, EventArgs e)
         {
@@ -123,6 +162,20 @@ namespace Formatter.Presenter
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 _view.SetSelectionTextColor(colorDialog.Color);
+
+                if (_model.GetColors().ContainsKey(_view.GetSelectionStart()))
+                    _model.GetColors().Remove(_view.GetSelectionStart());
+
+                _model.GetColors().Add(_view.GetSelectionStart(), colorDialog.Color);
+
+                int border = _view.GetSelectionStart() + _view.GetSelectionLength();
+                if (border < _view.GetText().Length)
+                {
+                    if (_model.GetColors().ContainsKey(border))
+                        _model.GetColors().Remove(border);
+
+                    _model.GetColors().Add(border, Color.Black);
+                }
             }
         }
         public void ChooseFormat(object sender, EventArgs e)
@@ -134,6 +187,20 @@ namespace Formatter.Presenter
                 if (fontDialog.ShowDialog() == DialogResult.OK)
                 {
                     _view.SetSelectionTextFont(fontDialog.Font);
+
+                    if (_model.GetFonts().ContainsKey(_view.GetSelectionStart()))
+                        _model.GetFonts().Remove(_view.GetSelectionStart());
+
+                    _model.GetFonts().Add(_view.GetSelectionStart(), fontDialog.Font);
+
+                    int border = _view.GetSelectionStart() + _view.GetSelectionLength();
+                    if (border < _view.GetText().Length)
+                    {
+                        if(_model.GetFonts().ContainsKey(border))
+                            _model.GetFonts().Remove(border);
+
+                        _model.GetFonts().Add(border, new Font("Times New Roman", 14f, FontStyle.Regular));
+                    }
                 }
             }
             catch (Exception ex) 
@@ -171,19 +238,31 @@ namespace Formatter.Presenter
         {
             // Тут возможен контроль над вводом
         }
-        public void Text_MouseUp(object sender, EventArgs e) 
+        public void Text_MouseUp(object sender, EventArgs e)
         {
-            string text = _view.GetSelectionText();
-
-            if (text != null) 
+            try
             {
-                Font font = _view.GetSelectionTextFont();
-                Color color = _view.GetSelectionTextColor();
+                string text = _view.GetSelectionText();
 
-                _view.SetFontSize(font.Size.ToString());
-                _view.SetFontColor(color.ToString());
-                _view.SetFontStyle(font.Style.ToString());
-                _view.SetFont(font.Name.ToString());
+                if (text != null)
+                {
+                    Font font = _view.GetSelectionTextFont();
+                    Color color = _view.GetSelectionTextColor();
+
+                    if (font != null)
+                    {
+                        _view.SetFontSize(font.Size.ToString());
+                        _view.SetFontStyle(font.Style.ToString());
+                        _view.SetFont(font.Name.ToString());
+                    }
+
+                    if(color != null)
+                        _view.SetFontColor(color.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                _view.ShowError(ex.Message);
             }
         }
     }
