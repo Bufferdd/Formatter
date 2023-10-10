@@ -86,12 +86,12 @@ namespace Formatter.Model
                     {
                         if (Colors.ContainsKey(i))
                         {
-                            writer.Write($"[color: {Colors[i].R},{Colors[i].G},{Colors[i].B}]");
+                            writer.Write($"[color: {Colors[i].R};{Colors[i].G};{Colors[i].B}]");
                         }
                         if (Fonts.ContainsKey(i))
                         {
                             Font font = Fonts[i];
-                            writer.Write($"[font: {font.Size},{font.Name},{font.Style}]");
+                            writer.Write($"[font: {font.Size};{font.Name};{font.Style}]");
                         }
                         writer.Write(Text[i]);
                     }

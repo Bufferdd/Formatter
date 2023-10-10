@@ -34,7 +34,7 @@ namespace FormatterTests
         public void Test_SaveInFileColor() 
         {
             string text = "Тестовый текст для проверки модели";
-            string textWithColor = "Тес[color: 255,0,0]товый т[color: 0,128,0]ек[color: 0,0,255]ст для проверки модели";
+            string textWithColor = "Тес[color: 255;0;0]товый т[color: 0;128;0]ек[color: 0;0;255]ст для проверки модели";
             string filename = "Тест.frmt";
 
             FormatterModel model = new FormatterModel(text, filename);
@@ -52,6 +52,35 @@ namespace FormatterTests
             {
                 string textNew = reader.ReadToEnd();
                 Assert.AreEqual(textWithColor, textNew);
+            }
+
+            File.Delete(filename);
+        }
+        [TestMethod]
+        public void Test_SaveInFileFont()
+        {
+            string text = "Тестовый текст для проверки модели";
+            string textWithFonts = "Тес[font: 10;Times New Roman;Italic]товый т[font: 20;Courier New;Regular]ек[font: 15,5;Microsoft Sans Serif;Underline]ст для проверки модели";
+            string filename = "Тест.frmt";
+
+            FormatterModel model = new FormatterModel(text, filename);
+            IModel iModel = model;
+
+            Font font1 = new Font(FontFamily.GenericSerif, 10, FontStyle.Italic);
+            Font font2 = new Font(FontFamily.GenericMonospace, 20, FontStyle.Regular);
+            Font font3 = new Font(FontFamily.GenericSansSerif, 15.5f, FontStyle.Underline);
+            model.Fonts.Add(3, font1);
+            model.Fonts.Add(10, font2);
+            model.Fonts.Add(12, font3);
+
+            iModel.SaveInFile(filename);
+
+            Assert.AreEqual(true, File.Exists(filename));
+
+            using (StreamReader reader = new StreamReader(filename))
+            {
+                string textNew = reader.ReadToEnd();
+                Assert.AreEqual(textWithFonts, textNew);
             }
 
             File.Delete(filename);
